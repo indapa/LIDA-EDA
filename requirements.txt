@@ -1,0 +1,3 @@
+lida 
+streamlit
+jinja2 >=3.1
