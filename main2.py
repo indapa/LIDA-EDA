@@ -35,6 +35,8 @@ summarization_methods = [
 st.write("## Exploratory Data Analysis with LIDA 📊  :bulb:")
 lida=None
 
+
+
 with st.sidebar:
     
     # make a form to submit the key
@@ -132,6 +134,9 @@ textgen_config = TextGenerationConfig(
         use_cache=use_cache)
     
 st.write("## Summary")
+if openai_key is None:
+     st.error("Please enter an OpenAI API key")
+     
     # **** lida.summarize *****
 summary = lida.summarize(
         selected_dataset,
