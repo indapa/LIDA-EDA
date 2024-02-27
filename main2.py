@@ -36,12 +36,12 @@ st.write("## Exploratory Data Analysis with LIDA 📊  :bulb:")
 lida=None
 
 
-
+openai_key= st.secrets["openai_key"]
 with st.sidebar:
     
     # make a form to submit the key
     
-    openai_key = st.text_input("Enter OpenAI API key:")    
+    #openai_key = st.text_input("Enter OpenAI API key:")    
     
     selected_model = st.selectbox(
             'Choose a model',
@@ -113,8 +113,7 @@ display_key = openai_key[:2] + "*" * (len(openai_key) - 5) + openai_key[-3:]
 selected_dataset = datasets[[dataset["label"]
                                      for dataset in datasets].index(selected_dataset_label)]["url"]
 st.write("GPT mode", selected_model)
-if openai_key:
-    st.write("OpenAI API key:", display_key)
+
 st.write("Datset:", selected_dataset_label)
 st.write("Temperature:", temperature)
 st.write("Number of goals:", num_goals)
@@ -136,7 +135,7 @@ textgen_config = TextGenerationConfig(
 st.write("## Summary")
 if openai_key is None:
      st.error("Please enter an OpenAI API key")
-     
+
     # **** lida.summarize *****
 summary = lida.summarize(
         selected_dataset,
