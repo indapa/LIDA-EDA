@@ -34,7 +34,6 @@ summarization_methods = [
 
 st.write("## Exploratory Data Analysis with LIDA 📊  :bulb:")
 lida=None
-openai_key=st.secrets.openai_key
 
 with st.sidebar:
     
