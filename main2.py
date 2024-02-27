@@ -34,8 +34,8 @@ summarization_methods = [
 
 st.write("## Exploratory Data Analysis with LIDA 📊  :bulb:")
 lida=None
-if 'form_one_complete' not in st.session_state:
-   st.session_state['form_one_complete'] = False
+if "OPENAI_API_KEY" not in os.environ:
+    st.error("Please enter your OpenAI API key.")
 
 with st.sidebar:
     
@@ -112,7 +112,8 @@ display_key = openai_key[:2] + "*" * (len(openai_key) - 5) + openai_key[-3:]
 selected_dataset = datasets[[dataset["label"]
                                      for dataset in datasets].index(selected_dataset_label)]["url"]
 st.write("GPT mode", selected_model)
-st.write("OpenAI API key:", display_key)
+if openai_key:
+    st.write("OpenAI API key:", display_key)
 st.write("Datset:", selected_dataset_label)
 st.write("Temperature:", temperature)
 st.write("Number of goals:", num_goals)
