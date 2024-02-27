@@ -34,11 +34,11 @@ summarization_methods = [
 
 st.write("## Exploratory Data Analysis with LIDA 📊  :bulb:")
 lida=None
-if "OPENAI_API_KEY" not in os.environ:
-    st.error("Please enter your OpenAI API key.")
+openai_key=st.secrets.openai_key
 
 with st.sidebar:
     
+    # make a form to submit the key
     
     openai_key = st.text_input("Enter OpenAI API key:")    
     
@@ -123,6 +123,7 @@ st.write("Use cache:", use_cache)
 st.write("Summarization method:", selected_method_label)
 st.write("Number of visualizations:", num_visualizations)
 st.write("Visualization library:", selected_library)
+
 
 lida = Manager(text_gen=llm("openai", api_key=openai_key))
 textgen_config = TextGenerationConfig(
