@@ -198,6 +198,7 @@ if st.session_state.second_submit == True:
     selected_goal_object = goals[selected_goal_index]
     st.session_state.selected_item = selected_goal_object
     
+    st.write("selected goal index", selected_goal_index)
     
     st.write(st.session_state.selected_item)
 
