@@ -123,7 +123,7 @@ with st.sidebar:
             
         num_visualizations = 1
 
-        submitted= st.form_submit_button("Submit", on_click=form_callback)
+        submitted= st.form_submit_button("Submit")
         if submitted:
             st.session_state.second_submit = True
 
