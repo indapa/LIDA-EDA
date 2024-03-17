@@ -23,7 +23,7 @@ def form_callback():
     st.write("Num goals:" , st.session_state.num_goals)
     st.write("Temperature: ", st.session_state.temperature)
     
-    st.write("second_submit: ", st.session_state.second_submit)
+   
     #st.write("Selected goal: ", st.session_state.selected_item)
     #st.write("User goal: ", st.session_state.user_goal)
 
