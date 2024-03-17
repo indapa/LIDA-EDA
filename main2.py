@@ -31,6 +31,7 @@ def form_callback():
 init_session_state()
 
 selected_library = "seaborn"
+num_visualizations = 1
 # make data dir if it doesn't exist
 os.makedirs("data", exist_ok=True)
 
@@ -49,6 +50,7 @@ datasets = [
         {"label": "Cars", "url": "https://raw.githubusercontent.com/uwdata/draco/master/data/cars.csv"},
         {"label": "Titanic", "url": "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/titanic.csv"},
         {"label": "Penguins", "url": "https://raw.githubusercontent.com/mwaskom/seaborn-data/master/penguins.csv"},
+        {'label': 'MPG', 'url': 'https://raw.githubusercontent.com/mwaskom/seaborn-data/master/mpg.csv'}
         ]
 
 
@@ -98,7 +100,7 @@ with st.sidebar:
                 value=0.0, 
                 key="temperature")
         
-        use_cache = st.checkbox("Use Cache", key="use_cache")
+        use_cache = st.checkbox("Use Cache", key="use_cache", value=True)
         num_goals = st.slider("Number of goals", min_value=1, max_value=5, value=3, step=1, key="num_goals")
         user_goal = st.text_input("Add a goal", key="user_goal")
 
@@ -121,7 +123,7 @@ with st.sidebar:
                 f"<span> {selected_summary_method_description} </span>",
                 unsafe_allow_html=True)
             
-        num_visualizations = 1
+        
 
         submitted= st.form_submit_button("Submit")
         if submitted:
@@ -206,7 +208,7 @@ if st.session_state.second_submit == True:
 
         textgen_config = TextGenerationConfig(
                 n=num_visualizations, temperature=temperature,
-                model=selected_model,
+                model=st.session_state.selected_model,
                 use_cache=use_cache)
 
             # **** lida.visualize *****
@@ -222,7 +224,8 @@ if st.session_state.second_submit == True:
 
         selected_viz_title = st.selectbox('Choose a visualization', options=viz_titles, index=0)
         #selected_viz_title = 'Visualization 1'
-        selected_viz = visualizations[viz_titles.index(selected_viz_title)]
+        #selected_viz = visualizations[viz_titles.index(selected_viz_title)]
+        selected_viz= visualizations[0]
 
         if selected_viz.raster:
             from PIL import Image
