@@ -200,7 +200,7 @@ if st.session_state.second_submit == True:
     
     
     st.write(st.session_state.selected_item)
-    
+
     # visualize goal
     if  st.session_state.selected_item:
         st.write("## Visualization")
@@ -219,10 +219,10 @@ if st.session_state.second_submit == True:
                 textgen_config=textgen_config,
                 library=selected_library) 
     
-        #st.write("total visualizations", len(visualizations))   
+        st.write("total visualizations", len(visualizations))   
         viz_titles = [f'Visualization {i+1}' for i in range(len(visualizations))]
 
-        selected_viz_title = st.selectbox('Choose a visualization', options=viz_titles, index=0)
+        #selected_viz_title = st.selectbox('Choose a visualization', options=viz_titles, index=0)
         #selected_viz_title = 'Visualization 1'
         #selected_viz = visualizations[viz_titles.index(selected_viz_title)]
         selected_viz= visualizations[0]
