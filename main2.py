@@ -7,27 +7,17 @@ import pandas as pd
 def init_session_state():
     if 'second_submit' not in st.session_state:
         st.session_state.second_submit = False
-    if 'selected_dataset_label' not in st.session_state:
-        st.session_state.selected_dataset_label = None
+   
     if 'selected_dataset' not in st.session_state:
         st.session_state.selected_dataset = None
-    if 'selected_model' not in st.session_state:
-        st.session_state.selected_model = None
-    if 'temperature' not in st.session_state:
-        st.session_state.temperature = None
-    if 'use_cache' not in st.session_state:
-        st.session_state.use_cache = None
-    if 'num_goals' not in st.session_state:
-        st.session_state.num_goals = None
-    if 'user_goal' not in st.session_state:
-        st.session_state.user_goal = None
-    
+
     
     
     
 def form_callback():
     #st.write("form callback")
-    st.write("selected dataset label: ", st.session_state.selected_dataset)
+    
+    #st.write("selected dataset label: ", st.session_state.selected_dataset)
     st.write("selected dataset: ", st.session_state.selected_dataset)
     st.write("selected model: ", st.session_state.selected_model)
     st.write("Num goals:" , st.session_state.num_goals)
@@ -78,88 +68,67 @@ st.write("## Exploratory Data Analysis with LIDA 📊  :bulb:")
 lida=None
 
 
-
-
-
-with st.sidebar:   
-    with st.form(key='input_form'):
-        
+with st.sidebar:
+    with st.form(key="input_form"):
         selected_dataset_label = st.selectbox(
             'Choose a dataset',
             options=[dataset["label"] for dataset in datasets],
             index=1,
             key="selected_dataset_label"
         )
-        
-       
-        selected_dataset = datasets[[dataset["label"]
-            for dataset in datasets].index(selected_dataset_label)]["url"]
+        selected_dataset = datasets[[dataset["label"] for dataset in datasets].index(selected_dataset_label)]["url"]
 
         if not selected_dataset:
-            st.info("To continue, select a dataset from the sidebar on the left or upload your own.")
-    
+            st.info("Please select a dataset")
+            st.stop()
+
         st.session_state.selected_dataset = selected_dataset
-    
-        selected_model = st.selectbox(
-                'Choose a model',
-                options=models,
-                index=0,
-                key="selected_model"
-            )
-            
+
+        selected_model= st.selectbox(
+            'Choose a model',
+            options=models,
+            index=0,
+            key="selected_model"
+        )
+
         temperature = st.slider(
                 "Temperature",
                 min_value=0.0,
                 max_value=1.0,
                 value=0.0, 
                 key="temperature")
-    
         
-        use_cache = st.checkbox("Use cache", value=True, key="use_cache")
-   
-   
-        num_goals = st.slider(
-                "Number of goals to generate",
-                min_value=1,
-                max_value=10,
-                value=4, 
-                key="num_goals")
-    
-        
-        user_goal = st.text_input("Describe Your Goal", key="user_goal")
-        
-       
+        use_cache = st.checkbox("Use Cache", key="use_cache")
+        num_goals = st.slider("Number of goals", min_value=1, max_value=5, value=3, step=1, key="num_goals")
+        user_goal = st.text_input("Add a goal", key="user_goal")
+
         selected_method_label = st.selectbox(
             'Choose a summarization method',
             options=[method["label"] for method in summarization_methods],
             index=0,
             key="selected_method_label"
-            )
+        )
 
-
-        selected_method = summarization_methods[[
-            method["label"] for method in summarization_methods].index(st.session_state.selected_method_label)]["label"]
+        selected_method = summarization_methods[[method["label"] for method in summarization_methods].index(st.session_state.selected_method_label)]["label"]
         st.session_state.selected_method = selected_method
 
-        # add description of selected method in very small font to sidebar
         selected_summary_method_description = summarization_methods[[
             method["label"] for method in summarization_methods].index(selected_method_label)]["description"]
 
+
         if selected_method:
             st.markdown(
-            f"<span> {selected_summary_method_description} </span>",
+                f"<span> {selected_summary_method_description} </span>",
                 unsafe_allow_html=True)
+            
+        num_visualizations = 1
 
-        num_visualizations=1
-               
         submitted= st.form_submit_button("Submit", on_click=form_callback)
-    
-    
+        if submitted:
+            st.session_state.second_submit = True
 
-    if submitted:
-        st.session_state.second_submit = True
+            
     
-
 if st.session_state.second_submit == True:
 
     lida = Manager(text_gen=llm("openai", api_key=openai_key))
@@ -266,4 +235,5 @@ if st.session_state.second_submit == True:
 
             st.write("### Visualization Code")
             st.code(selected_viz.code)
+     
      
