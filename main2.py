@@ -206,7 +206,7 @@ if st.session_state.second_submit == True:
     st.write(st.session_state.selected_item)
 
     # visualize goal
-    if  st.session_state.selected_item:
+    if  st.session_state.selected_item and st.session_state.second_submit == True:
         st.write("## Visualization")
         
 
