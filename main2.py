@@ -220,8 +220,8 @@ if st.session_state.second_submit == True:
         #st.write("total visualizations", len(visualizations))   
         viz_titles = [f'Visualization {i+1}' for i in range(len(visualizations))]
 
-        #selected_viz_title = st.selectbox('Choose a visualization', options=viz_titles, index=0)
-        selected_viz_title = 'Visualization 1'
+        selected_viz_title = st.selectbox('Choose a visualization', options=viz_titles, index=0)
+        #selected_viz_title = 'Visualization 1'
         selected_viz = visualizations[viz_titles.index(selected_viz_title)]
 
         if selected_viz.raster:
