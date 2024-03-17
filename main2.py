@@ -5,6 +5,9 @@ import os
 import pandas as pd
 
 def init_session_state():
+
+    if 'selected_item' not in st.session_state:
+        st.session_state.selected_item = None
     if 'second_submit' not in st.session_state:
         st.session_state.second_submit = False
    
