@@ -197,11 +197,11 @@ if st.session_state.second_submit == True:
     st.session_state.selected_item = selected_goal_object
     
     
-    st.write(st.session_state.selected_item)
+    #st.write(st.session_state.selected_item)
     
     # visualize goal
     if  st.session_state.selected_item:
-        st.write("## Visualizations")
+        st.write("## Visualization")
         
 
         textgen_config = TextGenerationConfig(
